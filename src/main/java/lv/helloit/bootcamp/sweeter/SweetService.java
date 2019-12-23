@@ -12,17 +12,23 @@ public class SweetService {
     List<Sweet> sweets = new ArrayList<>();
     private long idCounter = 1L;
 
-    public Sweet addSweet(Sweet newSweet) {
-        newSweet.setId(idCounter);
+    public Sweet addSweet(ChangeSweetDto newSweet) {
+        Sweet sweet = new Sweet();
+
+        sweet.setId(idCounter);
         idCounter++;
+
         LocalDateTime currentTime = LocalDateTime.now();
-        newSweet.setDatePosted(currentTime);
-        newSweet.setDateLastUpdate(currentTime);
-        this.sweets.add(newSweet);
-        return newSweet;
+        sweet.setDatePosted(currentTime);
+        sweet.setDateLastUpdate(currentTime);
+
+        sweet.setAuthor(newSweet.getAuthor());
+        sweet.setContent(newSweet.getContent());
+        this.sweets.add(sweet);
+        return sweet;
     }
 
-    public void update(Long id, Sweet newSweet) {
+    public void update(Long id, ChangeSweetDto newSweet) {
         for (Sweet existingSweet : this.sweets) {
             if (existingSweet.getId().equals(id)) {
                 existingSweet.setDateLastUpdate(LocalDateTime.now());

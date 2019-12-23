@@ -1,10 +1,12 @@
 package lv.helloit.bootcamp.sweeter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -33,12 +35,12 @@ public class SweetRestController {
     }
 
     @PostMapping("/addSweet")
-    public ResponseEntity<Sweet> addSweet(@RequestBody Sweet newSweet) {
+    public ResponseEntity<Sweet> addSweet(@Valid @RequestBody ChangeSweetDto newSweet) {
         return new ResponseEntity<>(this.service.addSweet(newSweet), HttpStatus.CREATED);
     }
 
     @PutMapping("/sweet/{id}")
-    public void update(@PathVariable("id") Long id, @RequestBody Sweet newSweet) {
+    public void update(@PathVariable("id") Long id, @Valid @RequestBody ChangeSweetDto newSweet) {
         this.service.update(id, newSweet);
     }
 }

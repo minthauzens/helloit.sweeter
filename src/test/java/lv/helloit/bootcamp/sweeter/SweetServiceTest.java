@@ -1,15 +1,12 @@
 package lv.helloit.bootcamp.sweeter;
 
-import com.fasterxml.jackson.databind.SequenceWriter;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class SweetServiceTest {
     SweetService service;
@@ -21,7 +18,7 @@ class SweetServiceTest {
 
     @Test
     void shouldCreateAndGetSweet() {
-        Sweet sweet = new Sweet();
+        ChangeSweetDto sweet = new ChangeSweetDto();
         sweet.setContent("Test content");
         sweet.setAuthor("John Doe");
         service.addSweet(sweet);
@@ -40,8 +37,8 @@ class SweetServiceTest {
 
     @Test
     void shouldIncreaseIdsForNewSweets() {
-        Sweet sw1 = new Sweet();
-        Sweet sw2 = new Sweet();
+        ChangeSweetDto sw1 = new ChangeSweetDto();
+        ChangeSweetDto sw2 = new ChangeSweetDto();
 
         service.addSweet(sw1);
         service.addSweet(sw2);
