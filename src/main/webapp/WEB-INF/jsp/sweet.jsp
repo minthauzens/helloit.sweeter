@@ -19,7 +19,7 @@
 <form action="/sweet/${sweet.id}" method="post">
     <input name="author" value="${sweet.author}" type="text" />
     <input name="content" value="${sweet.content}" type="text" />
-    <button type="submit">SUBMIT</button>
+    <button type="submit">SUBMIT BUTTON</button>
 </form>
 
 
