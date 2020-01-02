@@ -1,4 +1,4 @@
-package lv.helloit.bootcamp.sweeter;
+package lv.helloit.bootcamp.sweeter.sweet;
 
 import javax.validation.constraints.NotBlank;
 

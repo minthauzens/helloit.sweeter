@@ -1,4 +1,4 @@
-package lv.helloit.bootcamp.sweeter;
+package lv.helloit.bootcamp.sweeter.sweet;
 
 import org.springframework.stereotype.Service;
 
@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SweetService {
@@ -15,8 +16,8 @@ public class SweetService {
     public Sweet addSweet(ChangeSweetDto newSweet) {
         Sweet sweet = new Sweet();
 
-        sweet.setId(idCounter);
-        idCounter++;
+        sweet.setId(this.idCounter);
+        this.idCounter++;
 
         LocalDateTime currentTime = LocalDateTime.now();
         sweet.setDatePosted(currentTime);
@@ -31,9 +32,9 @@ public class SweetService {
     public void update(Long id, ChangeSweetDto newSweet) {
         for (Sweet existingSweet : this.sweets) {
             if (existingSweet.getId().equals(id)) {
-                existingSweet.setDateLastUpdate(LocalDateTime.now());
                 existingSweet.setAuthor(newSweet.getAuthor());
                 existingSweet.setContent(newSweet.getContent());
+                existingSweet.setDateLastUpdate(LocalDateTime.now());
                 break;
             }
         }
@@ -44,6 +45,12 @@ public class SweetService {
                 .filter(sweet -> sweet.getId().equals(sweetId))
                 .findFirst();
 
+    }
+
+    public List<Sweet> getSweetsByAuthor(String author) {
+        return this.sweets.stream()
+                .filter(sweet -> sweet.getAuthor().equals(author))
+                .collect(Collectors.toList());
     }
 
     public List<Sweet> getAllSweets() {

@@ -2,6 +2,7 @@ package lv.helloit.bootcamp.sweeter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lv.helloit.bootcamp.sweeter.sweet.Sweet;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

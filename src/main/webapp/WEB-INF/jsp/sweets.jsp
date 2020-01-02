@@ -1,24 +1,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--@elvariable id="sweets" type="java.util.List<lv.helloit.bootcamp.Sweet>"--%>
-<%--@elvariable id="sweet" type="lv.helloit.bootcamp.Sweet"--%>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Latest sweets</title>
-
-</head>
+<%@include file="header.jsp"%>
 <body>
-<c:if test="${sweets.isEmpty()}">
-Sorry, no sweets for you!
-</c:if>
-<c:forEach items="${sweets}" var="sweet">
-<p style="font-weight: bold;">${sweet.author}: </p>
-<a href="/sweet/${sweet.id}">
-    ${sweet.content}
-</a>
-    <br />
-</c:forEach>
+
+<%@include file="navbar.jsp"%>
+<div class="container">
+    <%--@elvariable id="sweets" type="java.util.List"--%>
+    <%--@elvariable id="sweet" type="lv.helloit.sweeter.Sweet"--%>
+    <c:if test="${sweets == null || sweets.isEmpty()}">
+        Sorry, nothing !!!
+    </c:if>
+
+    <div class="container-fluid">
+        <div class="row">
+            <c:forEach items="${sweets}" var="sweet">
+                <div class="card text-center" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">${sweet.author}</h5>
+                        <p class="card-text">${sweet.content}</p>
+                        <a href="/sweet/${sweet.id}" class="btn btn-primary">Edit</a>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

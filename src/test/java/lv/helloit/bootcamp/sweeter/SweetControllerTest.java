@@ -1,5 +1,8 @@
 package lv.helloit.bootcamp.sweeter;
 
+import lv.helloit.bootcamp.sweeter.sweet.ChangeSweetDto;
+import lv.helloit.bootcamp.sweeter.sweet.Sweet;
+import lv.helloit.bootcamp.sweeter.sweet.SweetService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
