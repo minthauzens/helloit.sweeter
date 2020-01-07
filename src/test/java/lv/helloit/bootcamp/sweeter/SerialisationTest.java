@@ -22,7 +22,7 @@ class SerialisationTest {
     void shouldSerializeAndDeSerializeSweet() throws JsonProcessingException {
         Sweet sweet = new Sweet();
         sweet.setId(1L);
-        sweet.setAuthor("John Doe");
+        sweet.setUserId("John Doe");
         sweet.setContent("Test sweet");
         LocalDateTime currentTime = LocalDateTime.now();
         sweet.setDateLastUpdate(currentTime);
@@ -33,6 +33,6 @@ class SerialisationTest {
         Sweet deSerializedSweet = mapper.readValue(json, Sweet.class);
         System.out.println(deSerializedSweet);
         assertEquals(sweet, deSerializedSweet);
-        assertSame(sweet, deSerializedSweet); // this will fail, because mapper returns new object
+        // assertSame(sweet, deSerializedSweet); // this will fail, because mapper returns new object
     }
 }

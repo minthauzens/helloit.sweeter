@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public class UserDAO {
@@ -19,5 +20,13 @@ public class UserDAO {
 
     public Map<String, User> getUsers() {
         return this.users;
+    }
+
+    public User getUserByEmail(String email) {
+        return this.users.values().stream().filter(user -> user.getEmail().equals(email)).findFirst().orElse(null);
+    }
+
+    public User getUserById(String userId) {
+        return this.users.get(userId);
     }
 }

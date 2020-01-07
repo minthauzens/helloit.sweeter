@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "lv.helloit.bootcamp.sparkpost.api.key",
+      "type": "java.lang.String",
+      "description": "Description for lv.helloit.bootcamp.sparkpost.api.key."
+  }
+] }

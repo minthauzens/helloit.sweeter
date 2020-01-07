@@ -4,16 +4,16 @@ import javax.validation.constraints.NotBlank;
 
 public class ChangeSweetDto {
     @NotBlank
-    private String author;
+    private String userId;
     @NotBlank
     private String content;
 
-    public String getAuthor() {
-        return author;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getContent() {

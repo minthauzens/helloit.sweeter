@@ -1,4 +1,4 @@
-package lv.helloit.bootcamp.sweeter;
+package lv.helloit.bootcamp.sweeter.sweet;
 
 import lv.helloit.bootcamp.sweeter.sweet.ChangeSweetDto;
 import lv.helloit.bootcamp.sweeter.sweet.Sweet;
@@ -33,7 +33,7 @@ class SweetControllerTest {
     void shouldGetAllSweets() throws Exception {
         ChangeSweetDto sweet = new ChangeSweetDto();
         sweet.setContent("Test");
-        sweet.setAuthor("Test");
+        sweet.setUserId("Test");
         Sweet savedSweet = sweetService.addSweet(sweet);
 
         mockMvc.perform(get("/sweets"))

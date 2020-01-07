@@ -1,6 +1,5 @@
-package lv.helloit.bootcamp.sweeter;
+package lv.helloit.bootcamp.sweeter.sweet;
 
-import lv.helloit.bootcamp.sweeter.sweet.Sweet;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,7 @@ class SweetControllerRestTest {
         assertEquals(1, sweets.size());
         var fetchedSweet = sweets.get(0);
         assertEquals(sweet.getId(), fetchedSweet.getId());
-        assertEquals("Me", fetchedSweet.getAuthor());
+        assertEquals("Me", fetchedSweet.getUserId());
         assertEquals("Test content 1", fetchedSweet.getContent());
     }
 
@@ -45,7 +44,7 @@ class SweetControllerRestTest {
         Sweet sweet = addSweet("1");
 
         Sweet newSweet = new Sweet();
-        newSweet.setAuthor("Max");
+        newSweet.setUserId("Max");
         newSweet.setContent("Test content 2");
         // if author or content isn't passed will update to null, probably needs to be fixed in SweetService
         Long sweetId = sweet.getId();
@@ -55,7 +54,7 @@ class SweetControllerRestTest {
         List<Sweet> sweets = getSweets();
         Sweet fetchedSweet = sweets.get(0);
         assertEquals(1, sweets.size());
-        assertEquals("Max", fetchedSweet.getAuthor());
+        assertEquals("Max", fetchedSweet.getUserId());
         assertEquals("Test content 2", fetchedSweet.getContent());
     }
 
@@ -86,7 +85,7 @@ class SweetControllerRestTest {
 
     private Sweet addSweet(String uniqueModifier) {
         Sweet sweet = new Sweet();
-        sweet.setAuthor("Me");
+        sweet.setUserId("Me");
         sweet.setContent("Test content " + uniqueModifier);
 
         return restTemplate.postForObject(getBaseUrl() + "/addSweet", sweet, Sweet.class);

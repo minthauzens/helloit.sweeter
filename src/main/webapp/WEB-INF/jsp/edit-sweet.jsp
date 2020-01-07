@@ -7,9 +7,9 @@
 <%--@elvariable id="sweet" type="lv.helloit.sweetter.Sweet"--%>
 
 <form action="/sweet" method="post">
-    <input name="author">
+    <input name="userId">
 
-    <c:if test="${author_err}">
+    <c:if test="${userId_err}">
         <label style="color: red;">Wrong field value</label>
     </c:if>
 

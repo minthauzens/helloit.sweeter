@@ -1,5 +1,8 @@
 package lv.helloit.bootcamp.sweeter.sweet;
 
+import lv.helloit.bootcamp.sweeter.user.UserDontExistException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,7 +13,7 @@ import java.util.Optional;
 
 @Controller
 public class SweetController {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(SweetController.class);
     private final SweetService sweetService;
 
     public SweetController(SweetService sweetService) {
@@ -24,6 +27,7 @@ public class SweetController {
 
     @GetMapping("/sweets")
     String getSweets(Model model) {
+        LOGGER.info("Get sweets endpoint called");
         model.addAttribute("sweets", sweetService.getAllSweets());
         return "sweets";
     }
@@ -62,7 +66,7 @@ public class SweetController {
     @PostMapping("/sweet")
     String create(Model model,
                   @Valid @ModelAttribute ChangeSweetDto sweetDto,
-                  BindingResult bindingResult) {
+                  BindingResult bindingResult) throws UserDontExistException {
         if (bindingResult.hasErrors()) {
             String wrongField = bindingResult.getFieldErrors().get(0).getField();
             model.addAttribute(wrongField + "_err", true);

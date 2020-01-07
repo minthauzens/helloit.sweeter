@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Sweet {
     private Long id;
     private String content;
-    private String author;
+    private String userId;
     private LocalDateTime datePosted;
     private LocalDateTime dateLastUpdate;
 
@@ -34,12 +34,12 @@ public class Sweet {
         this.content = content;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public LocalDateTime getDatePosted() {
@@ -57,14 +57,14 @@ public class Sweet {
         Sweet sweet = (Sweet) o;
         return Objects.equals(id, sweet.id) &&
                 Objects.equals(content, sweet.content) &&
-                Objects.equals(author, sweet.author) &&
+                Objects.equals(userId, sweet.userId) &&
                 Objects.equals(datePosted, sweet.datePosted) &&
                 Objects.equals(dateLastUpdate, sweet.dateLastUpdate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, content, author, datePosted, dateLastUpdate);
+        return Objects.hash(id, content, userId, datePosted, dateLastUpdate);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Sweet {
         return "Sweet{" +
                 "id=" + id +
                 ", content='" + content + '\'' +
-                ", author='" + author + '\'' +
+                ", userId='" + userId + '\'' +
                 ", datePosted=" + datePosted +
                 ", dateLastUpdate=" + dateLastUpdate +
                 '}';
@@ -82,7 +82,7 @@ public class Sweet {
     public static final class SweetBuilder {
         private Long id;
         private String content;
-        private String author;
+        private String userId;
         private LocalDateTime datePosted;
         private LocalDateTime dateLastUpdate;
 
@@ -103,8 +103,8 @@ public class Sweet {
             return this;
         }
 
-        public SweetBuilder withAuthor(String author) {
-            this.author = author;
+        public SweetBuilder withUserId(String userId) {
+            this.userId = userId;
             return this;
         }
 
@@ -122,7 +122,7 @@ public class Sweet {
             Sweet sweet = new Sweet();
             sweet.setId(id);
             sweet.setContent(content);
-            sweet.setAuthor(author);
+            sweet.setUserId(userId);
             sweet.setDatePosted(datePosted);
             sweet.setDateLastUpdate(dateLastUpdate);
             return sweet;

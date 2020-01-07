@@ -24,7 +24,7 @@
                         }
                     %>">
                 <a class="nav-link" href="/sweets">
-                    Home
+                    <fmt:message key="button.home.label"/>
                 </a>
             </li>
             <li class="nav-item">
@@ -33,8 +33,9 @@
                         if("edit-sweet.jsp".equals(currentPage)) {
                             out.println("active");
                         }
-                    %>" href="/create-sweet">Create new sweet</a>
+                    %>" href="/create-sweet"><fmt:message key="sweet.new"/></a>
             </li>
         </ul>
     </div>
+
 </nav>

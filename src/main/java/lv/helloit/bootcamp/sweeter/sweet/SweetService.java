@@ -1,5 +1,7 @@
 package lv.helloit.bootcamp.sweeter.sweet;
 
+import lv.helloit.bootcamp.sweeter.user.UserDontExistException;
+import lv.helloit.bootcamp.sweeter.user.UserService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -10,10 +12,18 @@ import java.util.stream.Collectors;
 
 @Service
 public class SweetService {
+    private final SweetValidator validator;
+
     List<Sweet> sweets = new ArrayList<>();
     private long idCounter = 1L;
 
-    public Sweet addSweet(ChangeSweetDto newSweet) {
+    public SweetService(SweetValidator validator) {
+        this.validator = validator;
+    }
+
+    public Sweet addSweet(ChangeSweetDto newSweet) throws UserDontExistException {
+        validator.validate(newSweet);
+
         Sweet sweet = new Sweet();
 
         sweet.setId(this.idCounter);
@@ -23,7 +33,7 @@ public class SweetService {
         sweet.setDatePosted(currentTime);
         sweet.setDateLastUpdate(currentTime);
 
-        sweet.setAuthor(newSweet.getAuthor());
+        sweet.setUserId(newSweet.getUserId());
         sweet.setContent(newSweet.getContent());
         this.sweets.add(sweet);
         return sweet;
@@ -32,7 +42,7 @@ public class SweetService {
     public void update(Long id, ChangeSweetDto newSweet) {
         for (Sweet existingSweet : this.sweets) {
             if (existingSweet.getId().equals(id)) {
-                existingSweet.setAuthor(newSweet.getAuthor());
+                existingSweet.setUserId(newSweet.getUserId());
                 existingSweet.setContent(newSweet.getContent());
                 existingSweet.setDateLastUpdate(LocalDateTime.now());
                 break;
@@ -47,9 +57,9 @@ public class SweetService {
 
     }
 
-    public List<Sweet> getSweetsByAuthor(String author) {
+    public List<Sweet> getSweetsByUserId(String userId) {
         return this.sweets.stream()
-                .filter(sweet -> sweet.getAuthor().equals(author))
+                .filter(sweet -> sweet.getUserId().equals(userId))
                 .collect(Collectors.toList());
     }
 
