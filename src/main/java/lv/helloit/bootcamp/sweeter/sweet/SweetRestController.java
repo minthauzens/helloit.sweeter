@@ -18,7 +18,7 @@ public class SweetRestController {
     }
 
     @GetMapping("/getSweets")
-    public List<Sweet> getAllSweets() {
+    public List<SweetDto> getAllSweets() {
         return this.service.getAllSweets();
     }
 
@@ -34,7 +34,8 @@ public class SweetRestController {
 
     @PostMapping("/addSweet")
     public ResponseEntity<Sweet> addSweet(@Valid @RequestBody ChangeSweetDto newSweet) throws UserDontExistException {
-        return new ResponseEntity<>(this.service.addSweet(newSweet), HttpStatus.CREATED);
+//        FIXME
+        return new ResponseEntity<>(this.service.addSweet(newSweet, null), HttpStatus.CREATED);
     }
 
     @PutMapping("/sweet/{id}")

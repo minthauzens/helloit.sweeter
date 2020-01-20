@@ -15,7 +15,7 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
     @Mock
-    private UserDAO userDAO;
+    private UserDAOInterface userDAO;
 
     @Mock
     private EmailService emailService;

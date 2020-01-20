@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:application.properties" />
+
+    <bean id="sparkPostClient" class="com.sparkpost.Client">
+        <constructor-arg name="key" value="${lv.helloit.bootcamp.sparkpost.api.key}" />
+    </bean>
+    <bean id="emailService" class="lv.helloit.bootcamp.sweeter.EmailService">
+        <constructor-arg name="client" ref="sparkPostClient" />
+    </bean>
+</beans>

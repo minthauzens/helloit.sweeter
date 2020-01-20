@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--DEPENDS ON BOOTSTRAP--%>
 <%
     String address =  request.getRequestURI();
@@ -35,7 +36,19 @@
                         }
                     %>" href="/create-sweet"><fmt:message key="sweet.new"/></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout"><fmt:message key="logout.label"/></a>
+            </li>
         </ul>
     </div>
 
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <fmt:message key="lang.label"/>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="?sessionLocale=lv"><fmt:message key="lang.latvian" /></a>
+            <a class="dropdown-item" href="?sessionLocale=en"><fmt:message key="lang.english" /></a>
+        </div>
+    </div>
 </nav>
