@@ -6,10 +6,12 @@ function deleteSweetAndRedirectWithConfirmationCheck(sweetId) {
 }
 
 function deleteSweetAndRedirect(sweetId) {
-    let deleteUrl = "/rest/sweet/" + sweetId;
+    let deleteUrl = "/sweet/" + sweetId;
     $.ajax({
         url: deleteUrl,
         type: "DELETE",
+    }).done(function () {
+        window.location.replace("/sweets")
     });
-    window.location.replace("/sweets")
+
 }

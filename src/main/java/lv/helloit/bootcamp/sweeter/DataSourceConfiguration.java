@@ -1,8 +1,8 @@
 package lv.helloit.bootcamp.sweeter;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
@@ -14,11 +14,12 @@ public class DataSourceConfiguration {
 
     @Bean
     DataSource dataSource() {
-        DriverManagerDataSource ds = new DriverManagerDataSource();
+        BasicDataSource ds = new BasicDataSource();
         ds.setUrl(DB_URL);
         ds.setUsername(DB_USERNAME);
         ds.setPassword(DB_PASSWORD);
         ds.setDriverClassName("org.postgresql.Driver");
+        ds.setMaxTotal(3);
         return ds;
     }
 }

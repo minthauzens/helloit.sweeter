@@ -28,7 +28,7 @@ public class UserSqlDao implements UserDAOInterface {
 
     @Override
     public Optional<User> getUserByEmail(String searchedEmail) {
-        return jdbcTemplate.queryForObject("SELECT * FROM \"USER\" WHERE `email` = '" + searchedEmail + "'",
+        return jdbcTemplate.queryForObject("SELECT * FROM \"USER\" WHERE email = '" + searchedEmail + "'",
                 (resultSet, rowNum) -> {
                     User user = new User();
                     user.setId(resultSet.getString("id"));
@@ -40,7 +40,7 @@ public class UserSqlDao implements UserDAOInterface {
 
     @Override
     public User getUserById(String searchedUserId) {
-        return jdbcTemplate.queryForObject("SELECT * FROM \"USER\" WHERE `id` = '" + searchedUserId + "'",
+        return jdbcTemplate.queryForObject("SELECT * FROM \"USER\" WHERE id = '" + searchedUserId + "'",
                 (resultSet, rowNum) -> {
                     User user = new User();
                     user.setId(resultSet.getString("id"));

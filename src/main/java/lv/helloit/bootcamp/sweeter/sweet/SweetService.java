@@ -1,6 +1,6 @@
 package lv.helloit.bootcamp.sweeter.sweet;
 
-import lombok.RequiredArgsConstructor;
+import com.sun.source.tree.SwitchTree;
 import lv.helloit.bootcamp.sweeter.sweet.SweetDto.SweetDtoBuilder;
 import lv.helloit.bootcamp.sweeter.user.User;
 import lv.helloit.bootcamp.sweeter.user.UserDontExistException;
@@ -8,10 +8,12 @@ import lv.helloit.bootcamp.sweeter.user.UserService;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 //@RequiredArgsConstructor
@@ -19,81 +21,74 @@ import java.util.stream.Collectors;
 public class SweetService {
     private final SweetValidator validator;
     private final UserService userService;
+    private final SweetDao sweetDao;
 
-    List<Sweet> sweets = new ArrayList<>();
-    private long idCounter = 1L;
-
-    public SweetService(SweetValidator validator, UserService userService) {
+    public SweetService(SweetValidator validator, UserService userService, SweetDao sweetDao) {
         this.validator = validator;
         this.userService = userService;
-    }
-
-    public Sweet addSweet(ChangeSweetDto newSweet, String authorEmail) throws UserDontExistException {
-        validator.validate(newSweet);
-
-        Sweet sweet = new Sweet();
-
-        sweet.setId(this.idCounter);
-        this.idCounter++;
-
-        LocalDateTime currentTime = LocalDateTime.now();
-        sweet.setDatePosted(currentTime);
-        sweet.setDateLastUpdate(currentTime);
-
-        var user = userService.getUserByEmail(authorEmail).get();
-
-        sweet.setContent(newSweet.getContent());
-        sweet.setUserId(user.getId());
-        this.sweets.add(sweet);
-        return sweet;
-    }
-
-    public void update(Long id, ChangeSweetDto newSweet) {
-        for (Sweet existingSweet : this.sweets) {
-            if (existingSweet.getId().equals(id)) {
-                existingSweet.setContent(newSweet.getContent());
-                existingSweet.setDateLastUpdate(LocalDateTime.now());
-                break;
-            }
-        }
-    }
-
-    @Cacheable("sweetById")
-    public Optional<SweetDto> getSweetById(Long sweetId) {
-        return this.sweets.stream()
-                .filter(sweet -> sweet.getId().equals(sweetId))
-                .map(this::mapSweetToSweetDto)
-                .findFirst();
-    }
-
-    public List<Sweet> getSweetsByUserId(String userId) {
-        return this.sweets.stream()
-                .filter(sweet -> sweet.getUserId().equals(userId))
-                .collect(Collectors.toList());
+        this.sweetDao = sweetDao;
     }
 
     public List<SweetDto> getAllSweets() {
         List<SweetDto> result = new ArrayList<>();
-        for (Sweet sweet : this.sweets) {
+        for (Sweet sweet : sweetDao.findAll()) {
             SweetDto dto = mapSweetToSweetDto(sweet);
             result.add(dto);
         }
         return result;
     }
 
-    public void deleteSweetById(Long sweetId) {
-        Optional<Sweet> optionalSweet = this.sweets.stream()
-                .filter(sweet -> sweet.getId().equals(sweetId))
-                .findFirst();
-        optionalSweet.ifPresent(this::deleteSweet);
+    @Cacheable("sweetById")
+    public Optional<SweetDto> getSweetById(String sweetId) {
+        return sweetDao.findById(sweetId).map(this::mapSweetToSweetDto);
+    }
+
+    public Sweet addSweet(ChangeSweetDto newSweet, String authorEmail) {
+        validator.validate(newSweet);
+
+        Sweet sweet = new Sweet();
+
+        sweet.setId(UUID.randomUUID().toString());
+        sweet.setContent(newSweet.getContent());
+
+        LocalDateTime currentTime = LocalDateTime.now();
+        sweet.setDatePosted(currentTime);
+        sweet.setDateLastUpdate(currentTime);
+
+        var user = userService.getUserByEmail(authorEmail).get();
+        sweet.setUserId(user.getId());
+
+        sweetDao.save(sweet);
+        return sweet;
+    }
+
+    public void update(String id, ChangeSweetDto newSweet) {
+        validator.validate(newSweet);
+
+        Optional<Sweet> optionalSweet = sweetDao.findById(id);
+
+        if (optionalSweet.isPresent()) {
+            Sweet sweet = optionalSweet.get();
+            sweet.setContent(newSweet.getContent());
+            sweetDao.save(sweet);
+        }
+
+    }
+
+    public List<Sweet> getSweetsByUserId(String userId) {
+        return sweetDao.findAllByUserId(userId);
+    }
+
+    public void deleteSweetById(String sweetId) {
+        sweetDao.deleteById(sweetId);
     }
 
     public void deleteSweet(Sweet sweet) {
-        this.sweets.remove(sweet);
+        sweetDao.delete(sweet);
     }
 
     public void deleteAllSweets() {
-        this.sweets.clear();
+        sweetDao.deleteAll();
     }
 
     private SweetDto mapSweetToSweetDto(Sweet sweet) {

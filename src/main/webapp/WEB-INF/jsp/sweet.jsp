@@ -15,7 +15,7 @@
 <p>${sweet.datePosted}</p>
 <p>${sweet.dateLastUpdate}</p>
 <br>
-<button onclick="deleteSweetAndRedirectWithConfirmationCheck(${sweet.id})">DELETE</button>
+<button onclick="deleteSweetAndRedirectWithConfirmationCheck('${sweet.id}')">DELETE</button>
 <form action="/sweet/${sweet.id}" method="post">
     <input id="sweet_content" name="content" value="${sweet.content}" type="text"/>
     <c:if test="${content_err}">

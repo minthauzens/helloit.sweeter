@@ -13,7 +13,7 @@ public class SweetValidator {
         this.userService = userService;
     }
 
-    public boolean validate(ChangeSweetDto newSweet) throws UserDontExistException {
+    public boolean validate(ChangeSweetDto newSweet) {
         return true;
     }
 }

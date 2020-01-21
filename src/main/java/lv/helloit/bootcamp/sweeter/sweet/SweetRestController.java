@@ -23,7 +23,7 @@ public class SweetRestController {
     }
 
     @DeleteMapping("/sweet/{id}")
-    public void deleteSweet(@PathVariable("id") Long id) {
+    public void deleteSweet(@PathVariable("id") String id) {
         this.service.deleteSweetById(id);
     }
 
@@ -39,7 +39,7 @@ public class SweetRestController {
     }
 
     @PutMapping("/sweet/{id}")
-    public void update(@PathVariable("id") Long id, @Valid @RequestBody ChangeSweetDto newSweet) {
+    public void update(@PathVariable("id") String id, @Valid @RequestBody ChangeSweetDto newSweet) {
         this.service.update(id, newSweet);
     }
 }

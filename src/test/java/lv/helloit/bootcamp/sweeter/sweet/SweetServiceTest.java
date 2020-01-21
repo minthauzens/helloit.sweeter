@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.List;
@@ -25,6 +24,9 @@ class SweetServiceTest {
     SweetService service;
 
     @Mock
+    private SweetDao sweetDao;
+
+    @Mock
     private UserService userService;
 
     @Mock
@@ -32,7 +34,7 @@ class SweetServiceTest {
 
     @BeforeEach
     void setUp() {
-        service = new SweetService(validator, userService);
+        service = new SweetService(validator, userService, sweetDao);
 
         CreateUserDto createUserDto = new CreateUserDto();
         createUserDto.setEmail("test@test.com");
@@ -42,7 +44,7 @@ class SweetServiceTest {
 
     @Test
     @WithMockUser("test@test.com")
-    void shouldCreateAndGetSweet() throws UserDontExistException {
+    void shouldCreateAndGetSweet() {
         User user = new User();
         user.setId("1");
         user.setEmail("test@test.com");
@@ -66,7 +68,7 @@ class SweetServiceTest {
     }
 
     @Test
-    void shouldIncreaseIdsForNewSweets() throws UserDontExistException {
+    void shouldIncreaseIdsForNewSweets() {
         User user = new User();
         user.setId("1");
         user.setEmail("test@test.com");

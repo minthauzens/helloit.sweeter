@@ -21,7 +21,7 @@ class SerialisationTest {
     @Test
     void shouldSerializeAndDeSerializeSweet() throws JsonProcessingException {
         Sweet sweet = new Sweet();
-        sweet.setId(1L);
+//        sweet.setId(1L);
         sweet.setUserId("John Doe");
         sweet.setContent("Test sweet");
         LocalDateTime currentTime = LocalDateTime.now();

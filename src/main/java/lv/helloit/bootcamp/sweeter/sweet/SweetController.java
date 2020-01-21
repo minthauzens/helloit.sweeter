@@ -37,7 +37,7 @@ public class SweetController {
     }
 
     @GetMapping("/sweet/{id}")
-    String getSweet(Model model, @PathVariable("id") Long id) {
+    String getSweet(Model model, @PathVariable("id") String id) {
         Optional<SweetDto> optionalSweet = sweetService.getSweetById(id);
 
         if (optionalSweet.isPresent()) {
@@ -51,7 +51,7 @@ public class SweetController {
 
     @PostMapping("/sweet/{id}")
     String updateSweet(Model model,
-                       @PathVariable("id") Long id,
+                       @PathVariable("id") String id,
                        @Valid @ModelAttribute ChangeSweetDto sweet,
                        BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -81,5 +81,10 @@ public class SweetController {
             this.sweetService.addSweet(sweetDto, authentication.getName());
             return "redirect:/sweets";
         }
+    }
+
+    @DeleteMapping("/sweet/{id}")
+    void deleteSweetById(@PathVariable("id") String id) {
+        this.sweetService.deleteSweetById(id);
     }
 }
