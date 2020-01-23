@@ -1,6 +1,5 @@
 package lv.helloit.bootcamp.sweeter.sweet;
 
-import lv.helloit.bootcamp.sweeter.user.UserDontExistException;
 import lv.helloit.bootcamp.sweeter.user.UserService;
 import org.springframework.stereotype.Component;
 

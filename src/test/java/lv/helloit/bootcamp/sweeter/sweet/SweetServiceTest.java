@@ -2,9 +2,7 @@ package lv.helloit.bootcamp.sweeter.sweet;
 
 import lv.helloit.bootcamp.sweeter.user.CreateUserDto;
 import lv.helloit.bootcamp.sweeter.user.User;
-import lv.helloit.bootcamp.sweeter.user.UserDontExistException;
 import lv.helloit.bootcamp.sweeter.user.UserService;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -88,16 +86,5 @@ class SweetServiceTest {
 
 //        List<Long> ids = sweets.stream().map(Sweet::getId).collect(Collectors.toList());
 //        assertThat(ids).containsExactlyInAnyOrder()
-    }
-
-    @Test
-    void shouldThrowExceptionIfValidationThrewException() throws UserDontExistException {
-        ChangeSweetDto sweet1 = new ChangeSweetDto();
-
-        when(validator.validate(sweet1)).thenThrow(new UserDontExistException("Test error message"));
-
-        Assertions.assertThatThrownBy(() -> service.addSweet(sweet1, "test@test.com"))
-                .hasMessage("Test error message")
-                .isInstanceOf(UserDontExistException.class);
     }
 }

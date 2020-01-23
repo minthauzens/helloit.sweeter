@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
-@Configuration
+//@Configuration
 public class DataSourceConfiguration {
     public static final String DB_URL = "jdbc:postgresql://localhost:5432/sweetDB";
     public static final String DB_USERNAME = "sweetDBUser";

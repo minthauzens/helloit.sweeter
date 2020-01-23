@@ -13,11 +13,11 @@ import java.util.UUID;
 @Service
 public class UserService {
     private final static Logger LOGGER = LoggerFactory.getLogger(UserService.class);
-    private final UserDAOInterface userDAO;
+    private final UserDao userDAO;
     private final EmailService emailService;
     private final PasswordService passwordService;
 
-    public UserService(UserDAOInterface userDAO, EmailService emailService, PasswordService passwordService) {
+    public UserService(UserDao userDAO, EmailService emailService, PasswordService passwordService) {
         this.userDAO = userDAO;
         this.emailService = emailService;
         this.passwordService = passwordService;
@@ -39,10 +39,10 @@ public class UserService {
     }
 
     public Optional<User> getUserById(String userId) {
-        return Optional.ofNullable(userDAO.getUserById(userId));
+        return userDAO.findById(userId);
     }
 
     public Optional<User> getUserByEmail(String email) {
-        return this.userDAO.getUserByEmail(email);
+        return this.userDAO.findByEmail(email);
     }
 }

@@ -1,20 +1,15 @@
 package lv.helloit.bootcamp.sweeter.sweet;
 
-import com.sun.source.tree.SwitchTree;
 import lv.helloit.bootcamp.sweeter.sweet.SweetDto.SweetDtoBuilder;
 import lv.helloit.bootcamp.sweeter.user.User;
-import lv.helloit.bootcamp.sweeter.user.UserDontExistException;
 import lv.helloit.bootcamp.sweeter.user.UserService;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 //@RequiredArgsConstructor
 @Service
@@ -38,7 +33,7 @@ public class SweetService {
         return result;
     }
 
-    @Cacheable("sweetById")
+//    @Cacheable("sweetById")
     public Optional<SweetDto> getSweetById(String sweetId) {
         return sweetDao.findById(sweetId).map(this::mapSweetToSweetDto);
     }

@@ -1,6 +1,5 @@
 package lv.helloit.bootcamp.sweeter.sweet;
 
-import lv.helloit.bootcamp.sweeter.user.UserDontExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +32,7 @@ public class SweetRestController {
     }
 
     @PostMapping("/addSweet")
-    public ResponseEntity<Sweet> addSweet(@Valid @RequestBody ChangeSweetDto newSweet) throws UserDontExistException {
+    public ResponseEntity<Sweet> addSweet(@Valid @RequestBody ChangeSweetDto newSweet) {
 //        FIXME
         return new ResponseEntity<>(this.service.addSweet(newSweet, null), HttpStatus.CREATED);
     }

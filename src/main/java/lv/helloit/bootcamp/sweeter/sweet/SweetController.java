@@ -1,6 +1,5 @@
 package lv.helloit.bootcamp.sweeter.sweet;
 
-import lv.helloit.bootcamp.sweeter.user.UserDontExistException;
 import lv.helloit.bootcamp.sweeter.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,7 +71,7 @@ public class SweetController {
                   @Valid @ModelAttribute ChangeSweetDto sweetDto,
                   BindingResult bindingResult,
                   Authentication authentication
-    ) throws UserDontExistException {
+    ) {
         if (bindingResult.hasErrors()) {
             String wrongField = bindingResult.getFieldErrors().get(0).getField();
             model.addAttribute(wrongField + "_err", true);
